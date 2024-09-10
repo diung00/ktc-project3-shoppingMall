@@ -43,6 +43,19 @@ public class UserService implements UserDetailsService {
                 .phone("010-1234-5678")
                 .authorities("ROLE_ADMIN,READ,WRITE")
                 .build();
+        this.repository.save(diu);
+
+        User user1 = User.builder()
+                .username("alex")
+                .password(passwordEncoder.encode("1234"))
+                .nickname("user1")
+                .name("user1")
+                .age(30)
+                .email("user1@example.com")
+                .phone("010-1234-5678")
+                .authorities("ROLE_USER")
+                .build();
+        this.repository.save(user1);
     }
 
 
@@ -78,6 +91,7 @@ public class UserService implements UserDetailsService {
         return CustomUserDetails.fromEntity(optionalUser.get());
 
     }
+
 
     public UserDto getUserByUsername(String username) {
         Optional<User> optionalUser = repository.findByUsername(username);

@@ -1,7 +1,12 @@
 package com.example.project3.user.entity;
 
+import com.example.project3.applyForBusiness.entity.RequestEntity;
+import com.example.project3.shop.ShopEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Entity
@@ -35,6 +40,13 @@ public class User {
 
         @Setter
         private String profileImgUrl;
+
+        @OneToMany(mappedBy = "user")
+        @JsonManagedReference
+        private List<RequestEntity> requests;
+
+        @OneToOne(mappedBy = "owner")
+        private ShopEntity shop;
 
 }
 

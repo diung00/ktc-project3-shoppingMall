@@ -29,19 +29,6 @@ public class UserController {
         return service.createUser(dto);
     }
 
-   /* @GetMapping("/login")
-    public String login(
-            @RequestParam("username")
-            String username,
-            @RequestParam("password")
-            String password
-    ){
-
-        return "login";
-    }*/
-
-
-
     @GetMapping("/my-profile")
     public String getMyProfile(){
         return "my-profile";

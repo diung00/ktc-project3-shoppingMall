@@ -32,12 +32,14 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/token/issue", "/users/register", "/users/login", "/views/**", "/error")
                             .permitAll();
-                    auth.requestMatchers("/default-role")
+                    auth.requestMatchers("/default/**")
                             .hasRole("DEFAULT");
-                    auth.requestMatchers("/user-role")
+                    auth.requestMatchers("/business-requests/create")
                             .hasRole("USER");
-                    auth.requestMatchers("/admin-role")
+                    auth.requestMatchers("/business-requests/view-requests")
                             .hasRole("ADMIN");
+                    auth.requestMatchers("/business/**")
+                                    .hasRole("BUSINESS");
                     auth.anyRequest()
                             .authenticated();
                 })
