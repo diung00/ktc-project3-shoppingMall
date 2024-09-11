@@ -9,12 +9,12 @@ import lombok.Setter;
 public class RequestDto {
 
 
-    private String username;
+    //private String username;
     private String reason;
 
     public static RequestDto fromEntity(RequestEntity entity){
         RequestDto requestDto = new RequestDto();
-        requestDto.setUsername(entity.getUser().getUsername());
+      //  requestDto.setUsername(entity.getUser().getUsername());
         requestDto.setReason(entity.getReason());
         return requestDto;
     }

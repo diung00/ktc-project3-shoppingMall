@@ -19,10 +19,12 @@ public class BusinessController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public String createRequest(
+            @PathVariable("userId")
+            Long userId,
             @RequestBody
             RequestDto dto
     ) {
-        RequestEntity request = service.createRequest(dto);
+        RequestEntity request = service.createRequest(userId,dto);
         return "Your request has been sent";
     }
 

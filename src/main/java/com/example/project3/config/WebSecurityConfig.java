@@ -36,9 +36,9 @@ public class WebSecurityConfig {
                             .hasRole("DEFAULT");
                     auth.requestMatchers("/business-requests/create")
                             .hasRole("USER");
-                    auth.requestMatchers("/business-requests/view-requests")
+                    auth.requestMatchers("/business-requests/view-requests", "/shop/view-open-requests")
                             .hasRole("ADMIN");
-                    auth.requestMatchers("/business/**")
+                    auth.requestMatchers("/shop/**")
                                     .hasRole("BUSINESS");
                     auth.anyRequest()
                             .authenticated();

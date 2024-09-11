@@ -1,35 +1,37 @@
 package com.example.project3.shop;
 
+import com.example.project3.BaseEntity;
 import com.example.project3.item.ItemEntity;
 import com.example.project3.user.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.sql.ast.tree.expression.SqlTuple;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShopEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Setter
-    private String shopName;
-    @Setter
-    private String shopDecription;
+public class ShopEntity extends BaseEntity {
 
-    @Setter
-    private String shopCategory;
-    @Setter
-    private String status;
+    private String name;
+    private String description;
 
-    @Setter
-    @OneToOne
-    @JoinColumn(name = "owner_id")
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+
+    @OneToOne(mappedBy = "shop")
     private User owner;
+
+
 
     @ManyToMany
     @JoinTable(
@@ -38,4 +40,5 @@ public class ShopEntity {
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
     private List<ItemEntity> items = new ArrayList<>();
+
 }
