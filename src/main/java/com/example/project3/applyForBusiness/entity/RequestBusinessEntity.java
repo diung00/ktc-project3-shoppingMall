@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class RequestEntity extends BaseEntity {
+public class RequestBusinessEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")

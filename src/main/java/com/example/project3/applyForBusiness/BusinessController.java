@@ -2,7 +2,7 @@ package com.example.project3.applyForBusiness;
 
 import com.example.project3.applyForBusiness.dto.RequestDto;
 import com.example.project3.applyForBusiness.dto.ResponseDto;
-import com.example.project3.applyForBusiness.entity.RequestEntity;
+import com.example.project3.applyForBusiness.entity.RequestBusinessEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +17,20 @@ public class BusinessController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/create")
+    @PostMapping("/create/{userId}")
     public String createRequest(
             @PathVariable("userId")
             Long userId,
             @RequestBody
             RequestDto dto
     ) {
-        RequestEntity request = service.createRequest(userId,dto);
+        RequestBusinessEntity request = service.createRequest(userId,dto);
         return "Your request has been sent";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/view-requests")
-    public List<RequestEntity> viewRequests(
+    public List<RequestBusinessEntity> viewRequests(
     ) {
         return service.viewRequests();
     }

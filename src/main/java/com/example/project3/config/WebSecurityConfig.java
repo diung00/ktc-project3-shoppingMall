@@ -34,11 +34,18 @@ public class WebSecurityConfig {
                             .permitAll();
                     auth.requestMatchers("/default/**")
                             .hasRole("DEFAULT");
-                    auth.requestMatchers("/business-requests/create")
+                    auth.requestMatchers("/business-requests/create", "/shop/search/**")
                             .hasRole("USER");
-                    auth.requestMatchers("/business-requests/view-requests", "/shop/view-open-requests")
+                    auth.requestMatchers(
+                            "/business-requests/view-requests",
+                                    "/shop/view-shop-requests",
+                                    "/shop/approve-open/**",
+                                    "/shop/reject-open/**",
+                                    "/shop/approve-close/**",
+                                    "/shop/search/**"
+                            )
                             .hasRole("ADMIN");
-                    auth.requestMatchers("/shop/**")
+                    auth.requestMatchers("/shop/**", "{userId}/shop/item")
                                     .hasRole("BUSINESS");
                     auth.anyRequest()
                             .authenticated();

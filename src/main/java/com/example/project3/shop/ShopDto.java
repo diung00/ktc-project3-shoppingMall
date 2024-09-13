@@ -15,4 +15,10 @@ public class ShopDto {
     private String name;
     private String description;
     private String category;
+
+    public ShopDto(String name, String description, Category category) {
+        this.name = name;
+        this.description = description;
+        this.category = category.name();
+    }
 }

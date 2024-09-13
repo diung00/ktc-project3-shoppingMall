@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "shop")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,12 +34,7 @@ public class ShopEntity extends BaseEntity {
 
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "shop_item",
-            joinColumns = @JoinColumn(name = "shop_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
+    @OneToMany(mappedBy = "shop")
     private List<ItemEntity> items = new ArrayList<>();
 
 }

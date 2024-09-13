@@ -2,11 +2,16 @@ package com.example.project3.shop;
 
 import com.example.project3.applyForBusiness.dto.RequestDto;
 import com.example.project3.applyForBusiness.dto.ResponseDto;
+import com.example.project3.item.ItemDto;
+import com.example.project3.item.ItemEntity;
 import com.example.project3.shop.shopOpeningRequest.OpenRequestEntity;
 import jakarta.servlet.http.PushBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -45,7 +50,7 @@ public class ShopController {
     }
 
     @PostMapping("/request-close/{userId}")
-    public ResponseDto requestCloseShop(
+    public ResponseEntity<ResponseDto> requestCloseShop(
             @PathVariable("userId")
             Long userId,
             @RequestBody
@@ -55,18 +60,19 @@ public class ShopController {
         shopService.closeRequest(userId, requestDto);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setResponseMessage("Shop closing request submitted successfully!");
-        return responseDto;
+        return ResponseEntity.ok(responseDto);
     }
 
 
 
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/view-shop-requests")
     public List<OpenRequestEntity> viewShopRequests() {
         return shopService.viewShopRequests();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/approve-open/{requestId}")
     public ResponseDto approveOpening(
             @PathVariable("requestId")
@@ -78,6 +84,7 @@ public class ShopController {
         return responseDto;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/reject-open/{requestId}")
     public ResponseDto rejectOpening(
             @PathVariable("requestId")
@@ -89,6 +96,7 @@ public class ShopController {
         return responseDto;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/approve-close/{requestId}")
     public ResponseDto approveClosing(
             @PathVariable("requestId")
@@ -98,6 +106,36 @@ public class ShopController {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setResponseMessage("Your shop has been closed!");
         return responseDto;
+    }
+
+
+    @GetMapping("/search/shop/by-name")
+    public List<ShopDto> searchShop(
+            @RequestParam("shopName")
+            String shopName
+    ) {
+        return shopService.searchShop(shopName);
+    }
+
+
+    @GetMapping("/search/shop/by-category")
+    public List<ShopDto> searchShopByCategory(
+            @RequestParam("category")
+            String category
+    ){
+        return shopService.searchShopByCategory(category);
+    }
+
+    @GetMapping("/search/item")
+    public List<ItemDto> findItem(
+            @RequestParam("key")
+            String key,
+            @RequestParam("minPrice")
+            Double minPrice,
+            @RequestParam("maxPrice")
+            Double maxPrice
+    ){
+        return shopService.findItem(key, minPrice, maxPrice);
     }
 
 

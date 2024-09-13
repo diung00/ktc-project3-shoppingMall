@@ -1,11 +1,9 @@
 package com.example.project3.applyForBusiness;
 
 import com.example.project3.applyForBusiness.dto.RequestDto;
-import com.example.project3.applyForBusiness.entity.RequestEntity;
-import com.example.project3.shop.ShopEntity;
+import com.example.project3.applyForBusiness.entity.RequestBusinessEntity;
 import com.example.project3.shop.ShopRepository;
 import com.example.project3.shop.ShopService;
-import com.example.project3.shop.Status;
 import com.example.project3.user.UserRepository;
 import com.example.project3.user.entity.User;
 import org.springframework.http.HttpStatus;
@@ -34,7 +32,7 @@ public class BusinessService {
     }
 
     //method tạo yêu cầu mới
-    public RequestEntity createRequest(Long userId, RequestDto dto){
+    public RequestBusinessEntity createRequest(Long userId, RequestDto dto){
         //1. ktra xem user c tồn tại không
         Optional<User> user = userRepository.findById(userId);
         if (!user.isPresent()){
@@ -49,7 +47,7 @@ public class BusinessService {
             throw new ResponseStatusException(HttpStatus.ACCEPTED);
         } else {
             //4. tạo yêu cầu mới
-            RequestEntity request = new RequestEntity();
+            RequestBusinessEntity request = new RequestBusinessEntity();
             request.setUser(user.get());
             request.setReason(dto.getReason());
             request.setStatus(RequestStatus.PENDING);
@@ -59,14 +57,14 @@ public class BusinessService {
 
      //method xem tất cả yêu cầu của user
 
-    public List<RequestEntity> viewRequests(){
+    public List<RequestBusinessEntity> viewRequests(){
         return requestRepository.findAll();
     }
 
     //method chấp nhận yêu cầu
 
-    public RequestEntity approveRequest(Long requestId) {
-            RequestEntity request = requestRepository.findById(requestId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public RequestBusinessEntity approveRequest(Long requestId) {
+            RequestBusinessEntity request = requestRepository.findById(requestId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             User user = request.getUser();
             // Thêm quyền ROLE_BUSINESS
             String authorities = user.getAuthorities();
@@ -82,8 +80,8 @@ public class BusinessService {
     }
 
         // Từ chối yêu cầu
-        public RequestEntity rejectRequest(Long requestId) {
-            RequestEntity request = requestRepository.findById(requestId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        public RequestBusinessEntity rejectRequest(Long requestId) {
+            RequestBusinessEntity request = requestRepository.findById(requestId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             request.setStatus(RequestStatus.REJECTED);
            return requestRepository.save(request);
 

@@ -1,20 +1,33 @@
 package com.example.project3.item;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
+
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Setter
+@AllArgsConstructor
 public class ItemDto {
-    private Long id;
 
     private String name;
     private String description;
     private String imageUrl;
     private Double price;
     private Integer stock;
+
+
+
+
+    public static ItemDto fromEntity(ItemEntity itemEntity) {
+        ItemDto itemDto = new ItemDto();
+        itemDto.name = itemEntity.getName();
+        itemDto.description = itemEntity.getDescription();
+        itemDto.imageUrl = itemEntity.getImageUrl();
+        itemDto.price = itemEntity.getPrice();
+        itemDto.stock = itemEntity.getStock();
+
+        return itemDto;
+
+    }
 }

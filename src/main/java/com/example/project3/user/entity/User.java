@@ -1,13 +1,13 @@
 package com.example.project3.user.entity;
 
 import com.example.project3.BaseEntity;
-import com.example.project3.applyForBusiness.entity.RequestEntity;
+import com.example.project3.applyForBusiness.entity.RequestBusinessEntity;
+import com.example.project3.purchase.PurchaseEntity;
 import com.example.project3.shop.ShopEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -37,7 +37,11 @@ public class User extends BaseEntity {
 
         @OneToMany(mappedBy = "user")
         @JsonManagedReference
-        private List<RequestEntity> requests;
+        private List<RequestBusinessEntity> requests;
+
+        @OneToMany(mappedBy = "user")
+        @JsonManagedReference
+        private List<PurchaseEntity> purchases;
 
 
 
