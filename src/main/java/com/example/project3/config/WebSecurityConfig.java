@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/token/issue", "/users/register", "/users/login", "/views/**", "/error")
+                    auth.requestMatchers("/token/issue", "/views/login", "/error")
                             .permitAll();
                     auth.requestMatchers("/default/**")
                             .hasRole("DEFAULT");
@@ -51,14 +51,14 @@ public class WebSecurityConfig {
                             .authenticated();
                 })
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/users/login")
-                        .defaultSuccessUrl("/users/my-profile")
-                        .failureUrl("/users/login?fail")
+                        .loginPage("/views/login")
+                        .defaultSuccessUrl("/views/user-page")
+                        .failureUrl("/views/login?fail")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/users/logout")
-                        .logoutSuccessUrl("/users/login"))
+                        .logoutUrl("/views/logout")
+                        .logoutSuccessUrl("/views/login"))
                 .addFilterBefore(
                         new JwtTokenFilter(
                                 tokenUtils,
