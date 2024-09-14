@@ -75,6 +75,12 @@ public class ShopService {
         }
         User user = optionalUser.get();
         ShopEntity shop = user.getShop();
+
+        if (!shop.getOwner().getId().equals(userId)) {
+            log.info(shop.getOwner().getId().toString());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         //ktra xem shop đã duoc open chua
         if (shop.getStatus() == Status.OPEN){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -103,6 +109,11 @@ public class ShopService {
         }
         User user = optionalUser.get();
         ShopEntity shop = user.getShop();
+
+        if (!shop.getOwner().getId().equals(userId)) {
+            log.info(shop.getOwner().getId().toString());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         if (shop == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not own a shop.");

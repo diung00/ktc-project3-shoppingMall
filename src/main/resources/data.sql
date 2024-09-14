@@ -1,21 +1,22 @@
 -- Insert 10 users with ROLE_BUSINESS, each with a unique shop
 INSERT INTO user (username, password, nickname, name, age, email, phone, authorities) VALUES
-('user1', '1234', 'Nick1', 'User One', 30, 'user1@example.com', '1234567890', 'ROLE_BUSINESS'),
-('user2', '1234', 'Nick2', 'User Two', 31, 'user2@example.com', '1234567891', 'ROLE_BUSINESS'),
-('user3', '1234', 'Nick3', 'User Three', 32, 'user3@example.com', '1234567892', 'ROLE_BUSINESS'),
-('user4', '1234', 'Nick4', 'User Four', 33, 'user4@example.com', '1234567893', 'ROLE_BUSINESS'),
-('user5', '1234', 'Nick5', 'User Five', 34, 'user5@example.com', '1234567894', 'ROLE_BUSINESS'),
-('user6', '1234', 'Nick6', 'User Six', 35, 'user6@example.com', '1234567895', 'ROLE_BUSINESS'),
-('user7', '1234', 'Nick7', 'User Seven', 36, 'user7@example.com', '1234567896', 'ROLE_BUSINESS'),
-('user8', '1234', 'Nick8', 'User Eight', 37, 'user8@example.com', '1234567897', 'ROLE_BUSINESS'),
-('user9', '1234', 'Nick9', 'User Nine', 38, 'user9@example.com', '1234567898', 'ROLE_BUSINESS'),
-('user10', '1234', 'Nick10', 'User Ten', 39, 'user10@example.com', '1234567899', 'ROLE_BUSINESS');
+('user1', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick1', 'User One', 30, 'user1@example.com', '1234567890', 'ROLE_BUSINESS'),
+('user2', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick2', 'User Two', 31, 'user2@example.com', '1234567891', 'ROLE_BUSINESS'),
+('user3', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick3', 'User Three', 32, 'user3@example.com', '1234567892', 'ROLE_BUSINESS'),
+('user4', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick4', 'User Four', 33, 'user4@example.com', '1234567893', 'ROLE_BUSINESS'),
+('user5', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick5', 'User Five', 34, 'user5@example.com', '1234567894', 'ROLE_BUSINESS'),
+('user6', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick6', 'User Six', 35, 'user6@example.com', '1234567895', 'ROLE_BUSINESS'),
+('user7', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick7', 'User Seven', 36, 'user7@example.com', '1234567896', 'ROLE_BUSINESS'),
+('user8', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick8', 'User Eight', 37, 'user8@example.com', '1234567897', 'ROLE_BUSINESS'),
+('user9', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick9', 'User Nine', 38, 'user9@example.com', '1234567898', 'ROLE_BUSINESS'),
+('user10', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick10', 'User Ten', 39, 'user10@example.com', '1234567899', 'ROLE_BUSINESS');
 
 -- Insert 3 users with ROLE_USER
 INSERT INTO user (username, password, nickname, name, age, email, phone, authorities) VALUES
-('user11', '1234', 'Nick11', 'User Eleven', 40, 'user11@example.com', '1234567800', 'ROLE_USER'),
-('user12', '1234', 'Nick12', 'User Twelve', 41, 'user12@example.com', '1234567801', 'ROLE_USER'),
-('user13', '1234', 'Nick13', 'User Thirteen', 42, 'user13@example.com', '1234567802', 'ROLE_USER');
+('user11', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick11', 'User Eleven', 40, 'user11@example.com', '1234567800', 'ROLE_USER'),
+('user12', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick12', 'User Twelve', 41, 'user12@example.com', '1234567801', 'ROLE_USER'),
+('user13', '$2a$10$IgbFeeb7PRaAUZYtmUIDiu4Zy6Y/HyQsTrg.Z30h4PdtR1C/G7/.y', 'Nick13', 'User Thirteen', 42, 'user13@example.com', '1234567802', 'ROLE_USER');
+
 
 INSERT INTO shop (name, description, category, status) VALUES
 ('Food Shop 1', 'Food shop description 1', 'FOOD', 'OPEN'),

@@ -32,13 +32,13 @@ public class ItemService {
 
 
     public ItemDto createItem(
-            Long ownerId,
-            ItemDto itemDto
+            ItemDto itemDto,
+            String currentUsername
     ) {
-        ShopEntity shop = findShopByOwnerId(ownerId);
-        if (!shop.getOwner().getId().equals(ownerId)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not the owner of this shop.");
-        }
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         ItemEntity newItem = new ItemEntity();
         newItem.setName(itemDto.getName());
@@ -52,11 +52,13 @@ public class ItemService {
     }
 
     public ItemDto updateItem(
-            Long ownerId,
             Long itemId,
-            ItemDto itemDto
+            ItemDto itemDto,
+            String currentUsername
     ) {
-        ShopEntity shop = findShopByOwnerId(ownerId);
+        User currentUser = userRepository.findByUsername(currentUsername).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Optional<ItemEntity> item = itemRepository.findByIdAndShop(itemId, shop);
         if (item.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -73,10 +75,14 @@ public class ItemService {
     }
 
     public void deleteItem(
-            Long ownerId,
-            Long itemId
+            Long itemId,
+            String currentUsername
     ) {
-        ShopEntity shop = findShopByOwnerId(ownerId);
+        User currentUser = userRepository.findByUsername(currentUsername)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
         Optional<ItemEntity> item = itemRepository.findByIdAndShop(itemId, shop);
         if (item.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

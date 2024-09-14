@@ -46,7 +46,7 @@ public class PurchaseController {
             Long purchaseId
     ){
         purchaseService.cancelPurchase(userId, purchaseId);
-        return ResponseEntity.ok("ok");  
+        return ResponseEntity.ok("ok");
     }
 
 
