@@ -19,9 +19,9 @@ public class ViewController {
         return "signup-form";
     }
 
-    @GetMapping("user-page")
+    @GetMapping("homepage")
     public String myPage() {
-        return "user-page";
+        return "homepage";
     }
 
     @GetMapping("admin-page")
@@ -29,6 +29,10 @@ public class ViewController {
     public String adminPage() {
         return "admin";
     }
+
+
+
+
 
 
 }

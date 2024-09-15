@@ -135,6 +135,13 @@ public class ShopService {
     public List<OpenRequestEntity> viewShopRequests() {
         return openRequestRepo.findAll();
     }
+    public List<ShopDto> viewAllShop() {
+        return shopRepository.findAll()
+                .stream()
+                .map(shop -> new ShopDto(shop.getName(), shop.getDescription(), shop.getCategory()))
+                .collect(Collectors.toList());
+    }
+
 
     public OpenRequestEntity approveOpening(Long requestId){
         OpenRequestEntity request = openRequestRepo.findById(requestId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

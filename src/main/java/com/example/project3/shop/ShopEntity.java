@@ -29,12 +29,12 @@ public class ShopEntity extends BaseEntity {
     private Status status;
 
 
-    @OneToOne(mappedBy = "shop")
+    @OneToOne(mappedBy = "shop", fetch = FetchType.LAZY)
     private User owner;
 
 
 
-    @OneToMany(mappedBy = "shop")
+    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
     private List<ItemEntity> items = new ArrayList<>();
 
 }

@@ -30,11 +30,11 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/token/issue", "/views/login", "/error")
+                    auth.requestMatchers("/token/issue", "/views/login", "/views/signup", "/error")
                             .permitAll();
                     auth.requestMatchers("/default/**")
                             .hasRole("DEFAULT");
-                    auth.requestMatchers("/business-requests/create", "/shop/search/**")
+                    auth.requestMatchers("/business-requests/create", "/shop/search/**", "/shop/all", "views/homepage")
                             .hasRole("USER");
                     auth.requestMatchers(
                             "/business-requests/view-requests",

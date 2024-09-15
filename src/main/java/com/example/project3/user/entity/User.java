@@ -30,16 +30,16 @@ public class User extends BaseEntity {
         private String profileImgUrl;
 
 
-        @OneToOne(cascade = CascadeType.ALL)
+        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
         @JoinColumn(name = "shop_id")
         private ShopEntity shop;
 
 
-        @OneToMany(mappedBy = "user")
+        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
         @JsonManagedReference
         private List<RequestBusinessEntity> requests;
 
-        @OneToMany(mappedBy = "user")
+        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
         @JsonManagedReference
         private List<PurchaseEntity> purchases;
 

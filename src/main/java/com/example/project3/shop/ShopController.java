@@ -23,6 +23,11 @@ public class ShopController {
         this.shopService = shopService;
     }
 
+    @GetMapping("/all")
+    public List<ShopDto> getAllShops() {
+        return shopService.viewAllShop();
+    }
+
     @PutMapping("/update/{userId}")
     public ResponseDto updateShop(
             @PathVariable("userId")

@@ -22,9 +22,9 @@ public class ItemEntity extends BaseEntity {
     private Double price;
     private Integer stock;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ShopEntity shop;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     private final List<PurchaseEntity> purchases = new ArrayList<>();
 }

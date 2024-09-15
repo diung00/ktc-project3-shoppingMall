@@ -21,7 +21,7 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/create")
     public UserDto createUser(
             @RequestBody
             UserDto dto
