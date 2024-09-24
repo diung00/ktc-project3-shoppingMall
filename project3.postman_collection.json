@@ -38,11 +38,21 @@
 		{
 			"name": "token/issue/user",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"dung\",\r\n    \"password\": \"1234\"\r\n}",
+					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -67,8 +77,30 @@
 		{
 			"name": "users/my-profile",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/my-profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"my-profile"
+					]
+				}
 			},
 			"response": []
 		},
@@ -80,7 +112,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJoYW5oIiwiaWF0IjoxNzI1ODY3MzAwLCJleHAiOjE3MjY0NzIxMDB9.sjJatzBENa_V2XPJRHGRV4QjdgvgUaBrL7oFZUl0scXEQKaME8cvd-VLC9kesikN",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
 							"type": "string"
 						}
 					]
@@ -89,7 +121,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"username\": \"hanh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\",\r\n    \"nickname\": \"hanh\",\r\n    \"name\": \"hanh\",\r\n    \"age\": \"20\",\r\n    \"email\": \"hanh@gmail.com\",\r\n    \"phone\": \"01023456789\"\r\n}",
+					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\",\r\n    \"nickname\": \"manh\",\r\n    \"name\": \"manh\",\r\n    \"age\": \"20\",\r\n    \"email\": \"manh@gmail.com\",\r\n    \"phone\": \"0102343\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -127,14 +159,8 @@
 				"method": "PUT",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "image",
-							"type": "file",
-							"src": "/C:/Users/diuni_3t1j1cr/OneDrive/문서/image.png"
-						}
-					]
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://localhost:8080/users/updateProfileImg",
@@ -159,7 +185,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI2MTIxMTAxLCJleHAiOjE3MjY3MjU5MDF9.-zLeECl6jiPC9z1UFXC4RsGKRxBEF2QMiJfcOJjmTGu47iTQATDThHBVrJWdRHg2",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
 							"type": "string"
 						}
 					]
@@ -168,7 +194,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"alex\",\r\n    \"reason\": \" alex dang yeu cau dong y di\"\r\n}",
+					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"reason\": \" alex wants to be business\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,6 +220,16 @@
 		{
 			"name": "business-requests/view-requests",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNzE1MzIyMiwiZXhwIjoxNzI3NzU4MDIyfQ.N2PAcDeNQImCvk6ShoTMIXD30SkbQG_O-RNmCkaEG5sMzEb4DuRxeNIaonVmqqZ3",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -214,8 +250,29 @@
 		{
 			"name": "token/issue/admin",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/token/issue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"token",
+						"issue"
+					]
+				}
 			},
 			"response": []
 		},
@@ -227,7 +284,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNjEyMTI3MCwiZXhwIjoxNzI2NzI2MDcwfQ.CFS1z56oNvNsD1Ibh4TZwHoEMIsCdXpbzogKu0mdk_hDQ5Bg6D6y1vNLc5W0yvka",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNzE1MzIyMiwiZXhwIjoxNzI3NzU4MDIyfQ.N2PAcDeNQImCvk6ShoTMIXD30SkbQG_O-RNmCkaEG5sMzEb4DuRxeNIaonVmqqZ3",
 							"type": "string"
 						}
 					]
