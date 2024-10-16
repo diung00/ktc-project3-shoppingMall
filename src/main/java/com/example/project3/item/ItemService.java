@@ -1,9 +1,10 @@
 package com.example.project3.item;
 
+import com.example.project3.config.AuthenticationFacade;
 import com.example.project3.shop.ShopEntity;
 import com.example.project3.shop.ShopRepository;
 import com.example.project3.user.UserRepository;
-import com.example.project3.user.entity.User;
+import com.example.project3.user.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,27 +18,11 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final ShopRepository shopRepository;
+    private final AuthenticationFacade authFacade;
 
-    public ShopEntity findShopByOwnerId(Long ownerId) {
-        Optional<User> user = userRepository.findById(ownerId);
-        if (!user.isPresent()) {
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        ShopEntity shop = user.get().getShop();
-        if (shop == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return shop;
-    }
-
-
-    public ItemDto createItem(
-            ItemDto itemDto,
-            String currentUsername
-    ) {
-        User currentUser = userRepository.findByUsername(currentUsername)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+    public ItemDto createItem(ItemDto itemDto){
+        UserEntity owner = authFacade.getCurrentUserEntity();
+        ShopEntity shop = shopRepository.findByOwnerId(owner.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         ItemEntity newItem = new ItemEntity();
@@ -53,11 +38,10 @@ public class ItemService {
 
     public ItemDto updateItem(
             Long itemId,
-            ItemDto itemDto,
-            String currentUsername
+            ItemDto itemDto
     ) {
-        User currentUser = userRepository.findByUsername(currentUsername).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+        UserEntity owner = authFacade.getCurrentUserEntity();
+        ShopEntity shop = shopRepository.findByOwnerId(owner.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Optional<ItemEntity> item = itemRepository.findByIdAndShop(itemId, shop);
         if (item.isEmpty()) {
@@ -75,12 +59,10 @@ public class ItemService {
     }
 
     public void deleteItem(
-            Long itemId,
-            String currentUsername
+            Long itemId
     ) {
-        User currentUser = userRepository.findByUsername(currentUsername)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        ShopEntity shop = shopRepository.findByOwnerId(currentUser.getId())
+        UserEntity owner = authFacade.getCurrentUserEntity();
+        ShopEntity shop = shopRepository.findByOwnerId(owner.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         Optional<ItemEntity> item = itemRepository.findByIdAndShop(itemId, shop);
@@ -88,10 +70,7 @@ public class ItemService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        itemRepository.delete(item.get());
+        itemRepository.deleteById(itemId);
     }
-
-
-
 
 }

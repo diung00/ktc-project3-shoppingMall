@@ -1,6 +1,6 @@
 package com.example.project3.user.dto;
 
-import com.example.project3.user.entity.User;
+import com.example.project3.user.entity.UserEntity;
 import lombok.*;
 
 @Getter
@@ -14,8 +14,6 @@ public class UserDto {
     private String username;
     @Setter
     private String password;
-    @Setter
-    private String passCheck;
     @Setter
     private String nickname;
     @Setter
@@ -31,7 +29,7 @@ public class UserDto {
     private String profileImgUrl;
 
 
-    public static UserDto fromEntity(User entity){
+    public static UserDto fromEntity(UserEntity entity){
         UserDto dto = new UserDto();
         dto.id = entity.getId();
         dto.username = entity.getUsername();

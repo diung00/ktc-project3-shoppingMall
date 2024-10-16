@@ -2,6 +2,7 @@ package com.example.project3.config;
 
 import com.example.project3.jwt.JwtTokenFilter;
 import com.example.project3.jwt.JwtTokenUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,16 +13,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfig {
     private final JwtTokenUtils tokenUtils;
     private final UserDetailsService userService;
-    public WebSecurityConfig(
-            JwtTokenUtils tokenUtils,
-            UserDetailsService userService
-    ) {
-        this.tokenUtils = tokenUtils;
-        this.userService = userService;
-    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -30,22 +26,17 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/token/issue", "/views/login", "/views/signup", "/error", "users/create")
-                            .permitAll();
-                    auth.requestMatchers("/default/**")
+                    auth.requestMatchers("/users/signup", "/users/login", "/error")
+                            .anonymous();
+                    auth.requestMatchers("/users/myProfile")
+                                    .permitAll();
+                    auth.requestMatchers("/default/**", "/users/update", "/users/updateProfileImg")
                             .hasRole("DEFAULT");
-                    auth.requestMatchers("/business-requests/create", "/shop/search/**", "/shop/all", "views/homepage")
+                    auth.requestMatchers("/users/**", "/purchases/create", "/purchases/cancel/**",  "/purchases/list")
                             .hasRole("USER");
-                    auth.requestMatchers(
-                            "/business-requests/view-requests",
-                                    "/shop/view-shop-requests",
-                                    "/shop/approve-open/**",
-                                    "/shop/reject-open/**",
-                                    "/shop/approve-close/**",
-                                    "/shop/search/**"
-                            )
+                    auth.requestMatchers("/admin/**")
                             .hasRole("ADMIN");
-                    auth.requestMatchers("/shop/**", "{userId}/shop/item")
+                    auth.requestMatchers("/shops/**", "/items/**", "/purchases/**",  "/purchases/approve/**")
                                     .hasRole("BUSINESS");
                     auth.anyRequest()
                             .authenticated();

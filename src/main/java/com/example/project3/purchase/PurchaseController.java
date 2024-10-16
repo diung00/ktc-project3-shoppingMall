@@ -1,6 +1,5 @@
 package com.example.project3.purchase;
 
-import com.example.project3.applyForBusiness.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,39 +12,33 @@ import java.util.List;
 public class PurchaseController {
     private final PurchaseService purchaseService;
 
-    @PostMapping("/create/{userId}")
+    @PostMapping("/create")
     public PurchaseDto create(
-            @PathVariable
-            Long userId,
             @RequestBody
             PurchaseDto purchaseDto
     ){
-        return purchaseService.createPurchase(userId, purchaseDto);
+        return purchaseService.createPurchase(purchaseDto);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<PurchaseDto>> purchaseList() {
-        List<PurchaseDto> purchaseList = purchaseService.purchaseList();
-        return ResponseEntity.ok(purchaseList);
+    public List<PurchaseDto> purchases() {
+        return purchaseService.purchaseList();
     }
 
     @PutMapping("/approve/{purchaseId}")
-    public ResponseEntity approve(
+    public PurchaseDto approve(
             @PathVariable
             Long purchaseId
     ){
-        PurchaseDto approvedPurchase = purchaseService.approvePurchase(purchaseId);
-        return ResponseEntity.ok(approvedPurchase);
+        return purchaseService.approvePurchase(purchaseId);
     }
 
     @PutMapping("/cancel/{purchaseId}")
     public ResponseEntity cancel(
-            @RequestParam("userId")
-            Long userId,
             @PathVariable
             Long purchaseId
     ){
-        purchaseService.cancelPurchase(userId, purchaseId);
+        purchaseService.cancelPurchase(purchaseId);
         return ResponseEntity.ok("ok");
     }
 

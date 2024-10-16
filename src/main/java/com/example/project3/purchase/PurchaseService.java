@@ -1,11 +1,12 @@
 package com.example.project3.purchase;
 
-import com.example.project3.applyForBusiness.RequestStatus;
+import com.example.project3.config.AuthenticationFacade;
 import com.example.project3.item.ItemEntity;
 import com.example.project3.item.ItemRepository;
 import com.example.project3.user.UserRepository;
-import com.example.project3.user.entity.User;
+import com.example.project3.user.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,12 +19,11 @@ import java.util.stream.Collectors;
 public class PurchaseService {
     private final PurchaseRepo purchaseRepo;
     private final ItemRepository itemRepository;
-    private final UserRepository userRepository;
+    private final AuthenticationFacade authFacade;
 
 
-    public PurchaseDto createPurchase(Long userId, PurchaseDto dto) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+    public PurchaseDto createPurchase(PurchaseDto dto) {
+        UserEntity user = authFacade.getCurrentUserEntity();
         ItemEntity item = itemRepository.findById(dto.getItemId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (item.getStock() < dto.getQuantity()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient stock");
@@ -38,39 +38,41 @@ public class PurchaseService {
         purchase.setQuantity(dto.getQuantity());
         purchase.setTotalPrice(item.getPrice()* dto.getQuantity());
         purchase.setStatus(PurchaseStatus.PENDING);
-
         purchaseRepo.save(purchase);
-
         return PurchaseDto.fromEntity(purchase);
     }
 
     public List<PurchaseDto> purchaseList(){
-        return purchaseRepo.findAll().stream()
+        UserEntity user = authFacade.getCurrentUserEntity();
+        List<PurchaseEntity> purchases = purchaseRepo.findAllByUserId(user.getId());
+        return purchases.stream()
                 .map(PurchaseDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
     // Xác nhận yêu cầu mua
     public PurchaseDto approvePurchase(Long purchaseId) {
-        PurchaseEntity purchase = purchaseRepo.findById(purchaseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserEntity owner = authFacade.getCurrentUserEntity();
+        PurchaseEntity purchase = purchaseRepo.findById(purchaseId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (purchase.getStatus() != PurchaseStatus.PENDING) {
+        if (!purchase.getShop().getOwner().equals(owner)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (purchase.getStatus().equals(PurchaseStatus.PENDING)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         purchase.setStatus(PurchaseStatus.APPROVED);
-
         return PurchaseDto.fromEntity(purchaseRepo.save(purchase));
     }
 
     // Hủy yêu cầu mua
-    public void cancelPurchase(Long userId, Long purchaseId) {
+    public void cancelPurchase(Long purchaseId) {
+        UserEntity user = authFacade.getCurrentUserEntity();
         PurchaseEntity purchase = purchaseRepo.findById(purchaseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (purchase.getUser().getId() != userId){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
 
-
-        if (purchase.getStatus() != PurchaseStatus.PENDING) {
+        if (purchase.getStatus().equals(PurchaseStatus.PENDING)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

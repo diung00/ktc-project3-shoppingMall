@@ -1,5 +1,6 @@
-package com.example.project3.user.entity;
+package com.example.project3.config;
 
+import com.example.project3.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class CustomUserDetails implements UserDetails {
                .toList();
     }
 
-    public static CustomUserDetails fromEntity(User entity) {
+    public static CustomUserDetails fromEntity(UserEntity entity) {
         CustomUserDetails details = new CustomUserDetails();
         details.id = entity.getId();
         details.username = entity.getUsername();

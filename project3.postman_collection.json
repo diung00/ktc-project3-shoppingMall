@@ -7,725 +7,886 @@
 	},
 	"item": [
 		{
-			"name": "users/create",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/users/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "token/issue/user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/token/issue",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"token",
-						"issue"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users/my-profile",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/my-profile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"my-profile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "update",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\",\r\n    \"nickname\": \"manh\",\r\n    \"name\": \"manh\",\r\n    \"age\": \"20\",\r\n    \"email\": \"manh@gmail.com\",\r\n    \"phone\": \"0102343\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/users/update",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users/updateProfileImg",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI1ODkxNzQ4LCJleHAiOjE3MjY0OTY1NDh9.CjjJR7pQQrAx_nZYUgwxBmrgE0E2eeYQEKvsjnmKGw-534rftsmZPTPiMmmQM-m9",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/users/updateProfileImg",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"updateProfileImg"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "business-requests/create/user-id",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI3MTUxOTg4LCJleHAiOjE3Mjc3NTY3ODh9.PbspEe8eIQ2DExkqo1tuTQtD9O5BUydAdDLT9jC8w9V39ep1ZVoTngddYuoDFBef",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"manh\",\r\n    \"reason\": \" alex wants to be business\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/business-requests/create/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"business-requests",
-						"create",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "business-requests/view-requests",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNzE1MzIyMiwiZXhwIjoxNzI3NzU4MDIyfQ.N2PAcDeNQImCvk6ShoTMIXD30SkbQG_O-RNmCkaEG5sMzEb4DuRxeNIaonVmqqZ3",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/business-requests/view-requests",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"business-requests",
-						"view-requests"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "token/issue/admin",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"1234\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/token/issue",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"token",
-						"issue"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/accept/request-id",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNzE1MzIyMiwiZXhwIjoxNzI3NzU4MDIyfQ.N2PAcDeNQImCvk6ShoTMIXD30SkbQG_O-RNmCkaEG5sMzEb4DuRxeNIaonVmqqZ3",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/business-requests/accept/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"business-requests",
-						"accept",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/reject",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/business-requests/reject/2?id=2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"business-requests",
-						"reject",
-						"2"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/update",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI2MDI4NjAxLCJleHAiOjE3MjY2MzM0MDF9.9gr--NziAhB9BHo_JXKEVd2U2luPZvWld2gam1OC42RrxcNZVSK8dhFHZSZc8y1X",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ten shop\",\r\n    \"description\": \" day la mot shop mowsi tihn tooi sex ban quan ao\",\r\n    \"category\": \"FASHION\"\r\n\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/shop/update",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/request-open/user-id",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop/request-open",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"request-open"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/request-close/userid",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI0OTExMzAyLCJleHAiOjE3MjQ5MTE0MjJ9.4uFidZ9UDHjjj8qgY0IBNW991zNYP2O3XqDKruHy0L0TMoPoAYdoiuhJWIoLkj95",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"reason\": \"i want to close my shop\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/shop/request-close/?userId=2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"request-close",
-						""
-					],
-					"query": [
-						{
-							"key": "userId",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "view-shop-requests",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop/view-shop-requests",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"view-shop-requests"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/approve-open/request-id",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop/approve-open/?requestId=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"approve-open",
-						""
-					],
-					"query": [
-						{
-							"key": "requestId",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/reject-open",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop/reject-open?requestId=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"reject-open"
-					],
-					"query": [
-						{
-							"key": "requestId",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "shop/approve-close",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop//approve-close/?requestId=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"",
-						"approve-close",
-						""
-					],
-					"query": [
-						{
-							"key": "requestId",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "search/shop/by-name",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"shopName\": \"shop\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/shop/search/shop/by-name",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"search",
-						"shop",
-						"by-name"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "search/shop/by-category**",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/shop/search/shop/by-category?category=fashion",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"search",
-						"shop",
-						"by-category"
-					],
-					"query": [
-						{
-							"key": "category",
-							"value": "fashion"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "search/item",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/shop/search/item?key=ao&minPrice=1000&maxPrice=1000000",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"shop",
-						"search",
-						"item"
-					],
-					"query": [
-						{
-							"key": "key",
-							"value": "ao"
+			"name": "users",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "minPrice",
-							"value": "1000"
-						},
-						{
-							"key": "maxPrice",
-							"value": "1000000"
+						"url": {
+							"raw": "http://localhost:8080/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"signup"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CREATE-item",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/2/shop/item/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"2",
-						"shop",
-						"item",
-						"create"
-					]
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"alex\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "myProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI5MDg1ODUwLCJleHAiOjE3Mjk2OTA2NTB9.9oDQip2KRHsqfY4Wv6vpc9A4btkLnUd4YKFjEMX_WmW1YmBW0lRh52z02dx-Tei5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/myProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"myProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJtYW5oIiwiaWF0IjoxNzI5MDY3NTI5LCJleHAiOjE3Mjk2NzIzMjl9.grT0P5xXDxvbIUB0icHhixGXC32o1CdrxaatAneS7bEOqmZMOz7HB5w5dH04ovVP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"manh\",\r\n    \"password\": \"1234\",\r\n    \"passCheck\": \"1234\",\r\n    \"nickname\": \"manh\",\r\n    \"name\": \"manh\",\r\n    \"age\": \"20\",\r\n    \"email\": \"manh@gmail.com\",\r\n    \"phone\": \"0102343\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfileImg",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI5MDY5MjQ0LCJleHAiOjE3Mjk2NzQwNDR9.46BrKTaWH3EfZkUfKL4Iq-Y0uYERqRvCat0Kz3HGQeOC86qew1C2nC3Ia0MB5MZV",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/diunguyen/Downloads/img.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/updateProfileImg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"updateProfileImg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchShopByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shopName\": \"shop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/searchShopByName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"searchShopByName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchShopByCategory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/searchShopByCategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"searchShopByCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findItem",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/findItem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"findItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toBusinessRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI5MDg1ODUwLCJleHAiOjE3Mjk2OTA2NTB9.9oDQip2KRHsqfY4Wv6vpc9A4btkLnUd4YKFjEMX_WmW1YmBW0lRh52z02dx-Tei5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"PENDING\",\n    \"reason\": \"i want to become a business man!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/businessRequest/toBusinessRequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"businessRequest",
+								"toBusinessRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchases/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/purchases/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"purchases",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchases/list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/purchases/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"purchases",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080//purchase/cancel/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"purchase",
+								"cancel",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "update-item",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/2/shop/item/update",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"2",
-						"shop",
-						"item",
-						"update"
-					]
+			"name": "admin",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNzE1MzIyMiwiZXhwIjoxNzI3NzU4MDIyfQ.N2PAcDeNQImCvk6ShoTMIXD30SkbQG_O-RNmCkaEG5sMzEb4DuRxeNIaonVmqqZ3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewRequestsToBusiness",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4ODA4NiwiZXhwIjoxNzI5NjkyODg2fQ.Q41-blcMOjbg18VETW9SVdF1PNwsW1zhzfQWOHtCMXGn0-QgIdpnpBmM5ITpvp9a",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/viewRequestsToBusiness",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"viewRequestsToBusiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "acceptBusinessRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4ODA4NiwiZXhwIjoxNzI5NjkyODg2fQ.Q41-blcMOjbg18VETW9SVdF1PNwsW1zhzfQWOHtCMXGn0-QgIdpnpBmM5ITpvp9a",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/acceptBusinessRequest/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"acceptBusinessRequest",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rejectBusinessRequest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/rejectBusinessRequest/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"rejectBusinessRequest",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewShopRequests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4ODcyNCwiZXhwIjoxNzI5NjkzNTI0fQ.5_Q_fw2iMPh7jxe5Llu4mniLKNrvM32XHSYIA2iI3bxcUOJILRL692WWT2dBBGIn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/viewShopRequests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"viewShopRequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viewAllShops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/viewAllShops",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"viewAllShops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approveOpening",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4OTYyOCwiZXhwIjoxNzI5Njk0NDI4fQ.vrPTTHwviVa0o53CzjzkJamrfNglIIehHj7O2aWonS5dzChZLPImnCQ-7KbaooS3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/approveOpening/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"approveOpening",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rejectOpening",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4OTYyOCwiZXhwIjoxNzI5Njk0NDI4fQ.vrPTTHwviVa0o53CzjzkJamrfNglIIehHj7O2aWonS5dzChZLPImnCQ-7KbaooS3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/rejectOpening/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"rejectOpening",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approveClosing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyOTA4OTYyOCwiZXhwIjoxNzI5Njk0NDI4fQ.vrPTTHwviVa0o53CzjzkJamrfNglIIehHj7O2aWonS5dzChZLPImnCQ-7KbaooS3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/approveClosing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"approveClosing"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "delete-item",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/2/shop/item/delete",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"2",
-						"shop",
-						"item",
-						"delete"
-					]
+			"name": "shops",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI5MDg4NTQxLCJleHAiOjE3Mjk2OTMzNDF9.rLz4TiJewiTokSaS5nbzhPFI-2qMBbzLUvPwaWKh8wCSlESzrnjo880YYr2k3Wy-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ten shop\",\r\n    \"description\": \" day la mot shop mowsi tihn tooi sex ban quan ao\",\r\n    \"category\": \"FASHION\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shops/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "requestOpenShop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI5MDg4NTQxLCJleHAiOjE3Mjk2OTMzNDF9.rLz4TiJewiTokSaS5nbzhPFI-2qMBbzLUvPwaWKh8wCSlESzrnjo880YYr2k3Wy-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"PENDING\",\n    \"reason\": \"i have prepared shop already!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shops/requestOpenShop",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"requestOpenShop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "requestCloseShop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI0OTExMzAyLCJleHAiOjE3MjQ5MTE0MjJ9.4uFidZ9UDHjjj8qgY0IBNW991zNYP2O3XqDKruHy0L0TMoPoAYdoiuhJWIoLkj95",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\": \"i want to close my shop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/shops/requestCloseShop",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"shops",
+								"requestCloseShop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "purchases/approve",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/purchases/approve/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"purchases",
+								"approve",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "shop/all",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "items",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhbGV4IiwiaWF0IjoxNzI2MjAxMzEzLCJleHAiOjE3MjY4MDYxMTN9.MMIYPA4PeycWgPd7sEMoAZyQpaDXQgMzgJzE-atufbFGjwqQx1zb_vqXiKGO9298",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"kimchi\",\r\n    \"description\": \"korea food is delecious\",\r\n    \"price\": 10000,\r\n    \"stock\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/items/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/items/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/items/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

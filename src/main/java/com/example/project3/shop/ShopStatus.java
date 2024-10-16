@@ -1,6 +1,6 @@
 package com.example.project3.shop;
 
-public enum Status {
+public enum ShopStatus {
     PENDING,
     OPEN,
     CLOSE_REQUESTING,

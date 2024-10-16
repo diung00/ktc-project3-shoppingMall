@@ -1,15 +1,25 @@
 package com.example.project3.user;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
+import com.example.project3.config.AuthenticationFacade;
+import com.example.project3.item.ItemDto;
+import com.example.project3.item.ItemEntity;
+import com.example.project3.item.ItemRepository;
+import com.example.project3.jwt.JwtTokenUtils;
+import com.example.project3.jwt.dto.JwtRequestDto;
+import com.example.project3.jwt.dto.JwtResponseDto;
+import com.example.project3.shop.Category;
+import com.example.project3.shop.ShopDto;
+import com.example.project3.shop.ShopEntity;
+import com.example.project3.shop.ShopRepository;
+import com.example.project3.user.dto.UserCreateDto;
 import com.example.project3.user.dto.UserDto;
-import com.example.project3.user.entity.CustomUserDetails;
-import com.example.project3.user.entity.User;
+import com.example.project3.config.CustomUserDetails;
+import com.example.project3.user.entity.UserEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,138 +28,90 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-
-public class UserService implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenUtils jwtTokenUtils;
+    private final AuthenticationFacade authFacade;
+    private final ShopRepository shopRepository;
+    private ItemRepository itemRepository;
 
-    public UserService (
-            UserRepository repository,
-            PasswordEncoder passwordEncoder
-    ) {
-            this.repository = repository;
-            this.passwordEncoder = passwordEncoder;
-
-        User diu = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("1234"))
-                .nickname("diu")
-                .name("diu")
-                .age(20)
-                .email("diu@example.com")
-                .phone("010-1234-5678")
-                .authorities("ROLE_ADMIN,READ,WRITE")
-                .build();
-        this.repository.save(diu);
-
-        User user1 = User.builder()
-                .username("alex")
-                .password(passwordEncoder.encode("1234"))
-                .nickname("user1")
-                .name("user1")
-                .age(30)
-                .email("user1@example.com")
-                .phone("010-1234-5678")
-                .authorities("ROLE_USER")
-                .build();
-        this.repository.save(user1);
-    }
-
-
-    public UserDto createUser(UserDto dto) {
-        if (userExists(dto.getUsername()) || !dto.getPassword().equals(dto.getPassCheck()))
+    @Transactional
+    public UserDto createUser(UserCreateDto dto) {
+        if (repository.existsByUsername(dto.getUsername()) || !dto.getPassword().equals(dto.getPassCheck()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        User newUser = new User();
+        UserEntity newUser = new UserEntity();
         newUser.setUsername(dto.getUsername());
         newUser.setPassword(passwordEncoder.encode(dto.getPassword()));
         newUser.setAuthorities("ROLE_DEFAULT");
 
-        newUser =  repository.save(newUser);
-        return UserDto.fromEntity(newUser);
+        return UserDto.fromEntity(repository.save(newUser));
     }
 
-    public List<UserDto> readAllUsers() {
-        List<UserDto> userList = new ArrayList<>();
-        for (User user : repository.findAll()) {
-           userList.add(UserDto.fromEntity(user));
+    public JwtResponseDto login(JwtRequestDto dto) {
+        UserEntity userEntity = repository.findByUsername(dto.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+
+        if (!passwordEncoder.matches(
+                dto.getPassword(),
+                userEntity.getPassword()))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+
+        String jwt = jwtTokenUtils.generateToken(CustomUserDetails.fromEntity(userEntity));
+        JwtResponseDto response = new JwtResponseDto();
+        response.setToken(jwt);
+        return response;
+    }
+
+
+    public UserDto readUser() {
+        UserEntity userEntity = authFacade.getCurrentUserEntity();
+
+        return UserDto.fromEntity(userEntity);
+
+    }
+
+    public UserDto updateUser(UserDto dto) {
+        UserEntity target = authFacade.getCurrentUserEntity();
+
+        target.setPassword(passwordEncoder.encode(dto.getPassword()));
+        target.setNickname(dto.getNickname());
+        target.setName(dto.getName());
+        target.setAge(dto.getAge());
+        target.setEmail(dto.getEmail());
+        target.setPhone(dto.getPhone());
+        if (
+                dto.getNickname() == null ||
+                        dto.getName() == null ||
+                        dto.getAge() == null ||
+                        dto.getEmail() == null ||
+                        dto.getPhone() == null
+
+        ) {
+            target.setAuthorities("ROLE_DEFAULT");
+
+        } else {
+            target.setAuthorities("ROLE_USER");
         }
-        return  userList;
-    }
 
-    @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-
-        Optional<User> optionalUser =
-                repository.findByUsername(username);
-        if (optionalUser.isEmpty())
-            throw new UsernameNotFoundException(username);
-
-        return CustomUserDetails.fromEntity(optionalUser.get());
-
+        return UserDto.fromEntity(repository.save(target));
     }
 
 
-    public UserDto getUserByUsername(String username) {
-        Optional<User> optionalUser = repository.findByUsername(username);
-        if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            return UserDto.fromEntity(user);
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
+    public String updateProfileImg(MultipartFile image) {
 
-    public UserDto readUser(Long id) {
-        Optional<User> optionalUser = repository.findById(id);
-        if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            return UserDto.fromEntity(user);
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
+        UserEntity userEntity = authFacade.getCurrentUserEntity();
+        Long id = userEntity.getId();
 
-    public UserDto updateUser(Long id, UserDto dto) {
-        Optional<User> optionalUser = repository.findById(id);
-        if (optionalUser.isPresent()){
-            User target = optionalUser.get();
-
-            target.setPassword(passwordEncoder.encode(dto.getPassword()));
-            target.setNickname(dto.getNickname());
-            target.setName(dto.getName());
-            target.setAge(dto.getAge());
-            target.setEmail(dto.getEmail());
-            target.setPhone(dto.getPhone());
-            if (
-                    dto.getNickname() == null ||
-                            dto.getName() == null ||
-                            dto.getAge() == null ||
-                            dto.getEmail() == null ||
-                            dto.getPhone() == null
-
-            ) {
-                target.setAuthorities("ROLE_DEFAULT");
-
-            }else {target.setAuthorities("ROLE_USER");}
-
-            return UserDto.fromEntity(repository.save(target));
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
-
-    public UserDto updateProfileImg(Long id, MultipartFile image) {
-
-        Optional<User> optionalUser = repository.findById(id);
-        if (optionalUser.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
         // tạo không gian lưu file
         String profileDir = "media/" + id + "/";
-        try{
+        try {
             Files.createDirectories(Path.of(profileDir));
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         String originalFilename = image.getOriginalFilename();
@@ -157,31 +119,53 @@ public class UserService implements UserDetailsService {
         String extension = filenameSplit[filenameSplit.length - 1];
 
         String uploadPath = profileDir + "profile." + extension;
-        try{
+        try {
             image.transferTo(Path.of(uploadPath));
-        }catch(IOException e){
+        } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        userEntity.setProfileImgUrl(uploadPath);
 
-        //nếu upload thành công, lưu url của ảnh vào entity
-        String regPath = "/static/" + id + "/profile." + extension;
-        User target = optionalUser.get();
-        target.setProfileImgUrl(regPath);
-
-        //đổi entity sang dto và trả về kết quả
-        return UserDto.fromEntity(repository.save(target));
+        return "Saved Profile Image!";
     }
 
 
-    public void deleteUser(Long id) {
-        if (repository.existsById(id))
-            repository.deleteById(id);
+    public List<ShopDto> searchShop(String shopName){
+
+        List<ShopEntity> shopEntities = shopRepository.findByNameContainingOrderByIdDesc(shopName);
+        return shopEntities.stream()
+                .map(shop -> new ShopDto(shop.getName(), shop.getDescription(), shop.getCategory(), shop.getStatus()))
+                .collect(Collectors.toList());
+
     }
 
-    public boolean userExists(
-            String username
+    public List<ShopDto> searchShopByCategory(String categoryStr){
+        Category category = Category.valueOf(categoryStr.toUpperCase());
+        List<ShopEntity> shopEntities = shopRepository.findByCategoryOrderByIdDesc(category);
+        return shopEntities.stream()
+                .map(shop -> new ShopDto(shop.getName(), shop.getDescription(), shop.getCategory(), shop.getStatus()))
+                .collect(Collectors.toList());
+
+    }
+
+    public List<ItemDto> findItem(
+            String key,
+            Double minPrice,
+            Double maxPrice
     ){
-        return repository.existsByUsername(username);
+        List<ItemEntity>items = itemRepository.findByNameContainingAndPriceRange(key, minPrice, maxPrice);
+
+        List<ItemDto> itemDtos = new ArrayList<>();
+        for (ItemEntity item : items) {
+            ItemDto dto = new ItemDto();
+            dto.setName(item.getName());
+            dto.setPrice(item.getPrice());
+            dto.setStock(item.getStock());
+            dto.setDescription(item.getDescription());
+
+            itemDtos.add(dto);
+        }
+        return itemDtos;
     }
 
 

@@ -1,58 +1,43 @@
 package com.example.project3.item;
 
-import com.example.project3.applyForBusiness.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("shop/item")
+@RequestMapping("items")
 public class ItemController {
 
     private final ItemService itemService;
 
     @PostMapping("/create")
-    public ResponseDto createProduct(
+    public ItemDto createProduct(
             @RequestBody
             ItemDto dto
     ) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // username form token
-        itemService.createItem(dto, currentUsername);
-        ResponseDto response = new ResponseDto();
-        response.setResponseMessage("Product created successfully!");
-        return response;
+        return itemService.createItem(dto);
     }
 
     @PutMapping("/update/{itemId}")
-    public ResponseDto updateProduct(
+    public ItemDto updateItem(
             @PathVariable
             Long itemId,
             @RequestBody
             ItemDto dto
     ){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // username form token
-        itemService.updateItem(itemId, dto, currentUsername);
-        ResponseDto response = new ResponseDto();
-        response.setResponseMessage("Product updated successfully!");
-        return response;
+        return itemService.updateItem(itemId, dto);
     }
 
     @DeleteMapping("/delete/{itemId}")
-    public ResponseDto deleteProduct(
+    public ResponseEntity<ItemDto> deleteItem(
             @PathVariable
             Long itemId
     ){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // username form token
-        itemService.deleteItem(itemId, currentUsername);
-        ResponseDto response = new ResponseDto();
-        response.setResponseMessage("Product deleted successfully!");
-        return response;
+        return ResponseEntity.ok().build();
     }
 
 
